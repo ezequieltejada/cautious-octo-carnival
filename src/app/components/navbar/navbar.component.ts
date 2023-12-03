@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectAppState, selectUser } from '../../state/app/app.selectors';
 import { AppActions } from '../../state/app/app.actions';
-import { map, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { User } from '../../common/interfaces/user.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,11 @@ import { map, tap } from 'rxjs';
       <div>
         <ul>
           <li><a [routerLink]="['/']" routerLinkActive="router-link-active" >Home</a></li>
-          <li><a [routerLink]="['/favourites']" routerLinkActive="router-link-active" >Favourites</a></li>
+          @if (user$ | async; as user) {
+            <li><a [routerLink]="['/favourites', user.id]" routerLinkActive="router-link-active">Favourites</a></li>
+          } @else {
+            <li class="disabled">Favourites</li>
+          }
         </ul>
       </div>
       <div>
@@ -55,7 +60,7 @@ import { map, tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
-  user$: any;
+  user$!: Observable<User | null>;
   constructor(private store: Store) { }
 
   ngOnInit() {

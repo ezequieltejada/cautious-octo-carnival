@@ -11,3 +11,9 @@ export interface Product {
     thumbnail: string;
     images: string[];
 }
+
+export type DeletedProduct = Product & {
+    deletedOn: Date;
+    isDeleted: boolean;
+};
+

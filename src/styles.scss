@@ -4,3 +4,9 @@
   text-decoration: underline;
   color: blue;
 }
+
+.disabled {
+  cursor: not-allowed;
+  text-decoration: none;
+  color: #ccc;
+}
