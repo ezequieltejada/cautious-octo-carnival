@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -61,7 +61,7 @@ import { User } from '../../common/interfaces/user.interface';
 })
 export class NavbarComponent implements OnInit {
   user$!: Observable<User | null>;
-  constructor(private store: Store) { }
+  store = inject(Store);
 
   ngOnInit() {
     this.user$ = this.store.select(selectUser);

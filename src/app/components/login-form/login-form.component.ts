@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -27,22 +27,19 @@ import { AppActions } from '../../state/app/app.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent {
+  fb = inject(FormBuilder);
+  store = inject(Store);
+  location = inject(Location);
 
   form = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   });
-  
-  constructor(
-    private fb: FormBuilder,
-    private store: Store,
-    private location: Location
-  ) { }
 
   navigateBack() {
     this.location.back();
   }
-  
+
   login() {
     if (!this.form.valid) {
       return;
