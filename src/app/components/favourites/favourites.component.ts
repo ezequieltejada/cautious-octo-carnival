@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-favourites',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NavbarComponent],
   template: `
-    <p>
-      favourites works!
-    </p>
+    <app-navbar></app-navbar>
   `,
   styles: `
     :host {
