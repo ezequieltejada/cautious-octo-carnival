@@ -1,4 +1,4 @@
-export interface Product {
+export interface RawProduct {
     id: number;
     title: string;
     description: string;
@@ -12,8 +12,19 @@ export interface Product {
     images: string[];
 }
 
-export type DeletedProduct = Product & {
+export type Product = RawProduct & {
+    isFavourite: boolean;
+};
+
+export type DeletedProduct = RawProduct & {
     deletedOn: Date;
     isDeleted: boolean;
 };
+
+export interface PagedProductsResponse {
+    limit: number;
+    products: RawProduct[];
+    skip: number;
+    total: number;
+}
 
