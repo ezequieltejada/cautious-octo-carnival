@@ -1,8 +1,8 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, concatMap, map, switchMap, take, tap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { catchError, concatMap, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { Observable, EMPTY, of, throwError } from 'rxjs';
 import { AppActions } from './app.actions';
 import { LoginService } from '../../services/login/login.service';
 import { ProductsService } from '../../services/products/products.service';
@@ -61,9 +61,21 @@ export class AppEffects {
   removeFromFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.removeFromFavorites),
-      map(({product, user}) => this.favouritesService.removeFavourite(user.username, product)),
-      map((content) => AppActions.removeFromFavoritesSuccess({ favourites: content })),
-      catchError((error) => of(AppActions.removeFromFavoritesFailure({ error }))),
+      map(({ product, user }) => {
+        try {
+          const updatedFavourites = this.favouritesService.removeFavourite(user.username, product);
+          return AppActions.removeFromFavoritesSuccess({ favourites: updatedFavourites });
+        } catch (error) {
+          let message = 'An error occurred while removing the product from the favourites.';
+          if (error instanceof Error) {
+            message = error.message;
+          } else if (typeof error === 'object') {
+            message = JSON.stringify(error);
+          }
+          console.error(message);
+          return AppActions.removeFromFavoritesFailure({ error: message });
+        }
+      })
     );
   });
 
