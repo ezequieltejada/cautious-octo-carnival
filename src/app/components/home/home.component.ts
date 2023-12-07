@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ProductListComponent } from '../product-list/product-list.component';
 
@@ -18,6 +17,6 @@ import { ProductListComponent } from '../product-list/product-list.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
-
+export class HomeComponent implements OnInit{
+  ngOnInit(): void {}
 }
