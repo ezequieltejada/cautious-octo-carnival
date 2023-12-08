@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectUser } from './state/app/app.selectors';
+import { map, pairwise } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +12,28 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  subscription$: any;
+  constructor(
+    private store: Store,
+    private router: Router
+  ) { }
 
+  ngOnInit() {
+    this.subscription$ = this.store.select(selectUser).pipe(
+      pairwise(),
+      map(([previousUser, currentUser]) => {
+        if (!previousUser && currentUser) {
+          this.router.navigateByUrl('/');
+        }
+        if (previousUser && !currentUser) {
+          this.router.navigateByUrl('/login');
+        }
+      })
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
+  }
 }

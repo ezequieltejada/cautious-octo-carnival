@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ProductListComponent, NavbarComponent],
   template: `
-    <h1>Home</h1>
-    <button type="button">Login</button>
+    <app-navbar></app-navbar>
+    <app-product-list></app-product-list>
   `,
   styles: `
     :host {
@@ -17,5 +18,5 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-
+  
 }
