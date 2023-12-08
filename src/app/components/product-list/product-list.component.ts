@@ -34,7 +34,7 @@ import { AppActions } from '../../state/app/app.actions';
       </ul>
       <p>
         <a href="#" (click)="prevPage(productsPage.products)"><</a>
-        Page {{ productsPage.products.limit + productsPage.products.skip }} of {{ productsPage.products.total }}
+        Page {{ (productsPage.products.limit + productsPage.products.skip) / productsPage.products.limit }} of {{ productsPage.products.total / productsPage.products.limit }}
         <a href="#" (click)="nextPage(productsPage.products)">></a>
       </p>
     }
