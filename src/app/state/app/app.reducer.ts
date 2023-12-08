@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AppActions } from './app.actions';
 import { User } from '../../common/interfaces/user.interface';
-import { PagedProductsResponse, RawProduct } from '../../common/interfaces/product.interface';
+import { PagedProductsResponse, Product, RawProduct } from '../../common/interfaces/product.interface';
 
 export const appFeatureKey = 'app';
 
@@ -11,7 +11,7 @@ export interface State {
   loginStatus: 'idle' | 'loading' | 'success' | 'failure';
   loadingProductsStatus: 'idle' | 'loading' | 'success' | 'failure';
   products: PagedProductsResponse | null;
-  favourites: RawProduct[];
+  favourites: Product[];
 }
 
 export const initialState: State = {
