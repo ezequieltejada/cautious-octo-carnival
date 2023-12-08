@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DeletedProduct, PagedProductsResponse, RawProduct } from '../../common/interfaces/product.interface';
+import { Observable, forkJoin, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class ProductsService {
 
   private readonly host = 'https://dummyjson.com/products';
 
+  private readonly headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
   /**
    * Fetches products from the API endpoint https://dummyjson.com/products
    *
@@ -22,8 +25,7 @@ export class ProductsService {
    * @memberof ProductsService
    */
   fetchProducts(limit = 10, skip = 0) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<PagedProductsResponse>(`${this.host}?limit=${limit}&skip=${skip}`, { headers });
+    return this.http.get<PagedProductsResponse>(`${this.host}?limit=${limit}&skip=${skip}`, { headers: this.headers });
   }
 
   /**
@@ -34,8 +36,7 @@ export class ProductsService {
    * @memberof ProductsService
    */
   addProduct(product: RawProduct) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<RawProduct>(`${this.host}/add`, product, { headers });
+    return this.http.post<RawProduct>(`${this.host}/add`, product, { headers: this.headers });
   }
 
   /**
@@ -46,8 +47,7 @@ export class ProductsService {
    * @memberof ProductsService
    */
   updateProduct(product: RawProduct) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<RawProduct>(`${this.host}/update/${product.id}`, product, { headers });
+    return this.http.put<RawProduct>(`${this.host}/update/${product.id}`, product, { headers: this.headers });
   }
 
   /**
@@ -58,7 +58,6 @@ export class ProductsService {
    * @memberof ProductsService
    */
   deleteProduct(product: RawProduct) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.delete<DeletedProduct>(`${this.host}/delete/${product.id}`, { headers });
+    return this.http.delete<DeletedProduct>(`${this.host}/delete/${product.id}`, { headers: this.headers });
   }
 }
