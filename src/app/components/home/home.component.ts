@@ -17,6 +17,6 @@ import { ProductListComponent } from '../product-list/product-list.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit{
-  ngOnInit(): void {}
+export class HomeComponent {
+  
 }
