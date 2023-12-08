@@ -1,8 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { Store } from '@ngrx/store';
-import { ProductListComponent } from '../product-list/product-list.component';
 import { FavouritesListComponent } from '../favourites-list/favourites-list.component';
 
 @Component({
@@ -21,5 +18,4 @@ import { FavouritesListComponent } from '../favourites-list/favourites-list.comp
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavouritesComponent {
-  store = inject(Store);
 }
