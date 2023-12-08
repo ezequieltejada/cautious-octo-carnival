@@ -42,6 +42,10 @@ export const reducer = createReducer(
   on(AppActions.removeFromFavorites, state => state),
   on(AppActions.removeFromFavoritesSuccess, (state, { favourites }) => ({ ...state, favourites })),
   on(AppActions.removeFromFavoritesFailure, (state, { error }) => ({ ...state, error })),
+  on(AppActions.nextProductPage, state => state),
+  on(AppActions.previousProductPage, state => state),
+  on(AppActions.nextFavoritePage, state => state),
+  on(AppActions.previousFavoritePage, state => state),
 );
 
 export const appFeature = createFeature({

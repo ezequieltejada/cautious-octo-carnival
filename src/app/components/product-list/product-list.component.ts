@@ -32,7 +32,11 @@ import { AppActions } from '../../state/app/app.actions';
           </app-product-item>
         }
       </ul>
-      <p>Page {{ productsPage.products.limit }} of {{ productsPage.products.total }}</p>
+      <p>
+        <a href="#" (click)="prevPage(productsPage.products)"><</a>
+        Page {{ productsPage.products.limit + productsPage.products.skip }} of {{ productsPage.products.total }}
+        <a href="#" (click)="nextPage(productsPage.products)">></a>
+      </p>
     }
   `,
   styles: `
@@ -58,6 +62,7 @@ import { AppActions } from '../../state/app/app.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent {
+
 
   store = inject(Store);
   user$ = this.store.select(selectUser).pipe(
@@ -101,5 +106,13 @@ export class ProductListComponent {
   
   removeFromFavourite(product: Product, user: User) {
     this.store.dispatch(AppActions.removeFromFavorites({ product, user }));
+  }
+
+  nextPage(productsPage: PagedProductsResponse) {
+    this.store.dispatch(AppActions.nextProductPage({products: productsPage}));
+  }
+
+  prevPage(productsPage: PagedProductsResponse) {
+    this.store.dispatch(AppActions.previousProductPage({ products: productsPage }));
   }
 }

@@ -22,5 +22,9 @@ export const AppActions = createActionGroup({
     'Remove from Favorites': props<{ product: Product, user: User }>(),
     'Remove from Favorites Success': props<{ favourites: Product[] }>(),
     'Remove from Favorites Failure': props<{ error: string }>(),
+    'Next Product Page': props<{ products: PagedProductsResponse }>(),
+    'Previous Product Page': props<{ products: PagedProductsResponse }>(),
+    'Next Favorite Page': props<{ products: PagedProductsResponse }>(),
+    'Previous Favorite Page': props<{ products: PagedProductsResponse }>(),
   }
 });

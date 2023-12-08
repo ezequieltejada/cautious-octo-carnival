@@ -79,6 +79,32 @@ export class AppEffects {
     );
   });
 
+  nextProductPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppActions.nextProductPage),
+      map(({products}) => {
+        const newSkip = products.skip + products.limit;
+        if (newSkip >= products.total) {
+          return AppActions.fetchProducts({ limit: 10, skip: 0 });
+        }
+        return AppActions.fetchProducts({ limit: 10, skip: newSkip });
+      }),
+    );
+  });
+
+  previousProductPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppActions.previousProductPage),
+      map(({ products }) => {
+        const newSkip = products.skip - products.limit;
+        if (newSkip < 0) {
+          return AppActions.fetchProducts({ limit: 10, skip: products.total - products.limit });
+        }
+        return AppActions.fetchProducts({ limit: 10, skip: newSkip });
+      }),
+    );
+  });
+
 
 
   constructor(

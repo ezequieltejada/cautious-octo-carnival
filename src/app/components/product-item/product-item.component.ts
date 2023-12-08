@@ -41,6 +41,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         & .product-item__image {
           width: 100px;
           height: 100px;
+          overflow: hidden;
           
           & ::ng-deep img {
             width: 100%;
