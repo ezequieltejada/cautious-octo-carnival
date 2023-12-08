@@ -72,7 +72,6 @@ export class AppEffects {
           } else if (typeof error === 'object') {
             message = JSON.stringify(error);
           }
-          console.error(message);
           return AppActions.removeFromFavoritesFailure({ error: message });
         }
       })
