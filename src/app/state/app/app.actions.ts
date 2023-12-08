@@ -14,7 +14,7 @@ export const AppActions = createActionGroup({
     'Fetch Products Success': props<{ products: PagedProductsResponse }>(),
     'Fetch Products Failure': props<{ error: string }>(),
     'Fetch Favorites': props<{ user: User }>(),
-    'Fetch Favorites Success': props<{ favourites: RawProduct[] }>(),
+    'Fetch Favorites Success': props<{ favourites: Product[] }>(),
     'Fetch Favorites Failure': props<{ error: string }>(),
     'Add to Favorites': props<{ product: Product, user: User }>(),
     'Add to Favorites Success': props<{ favourites: Product[] }>(),
